@@ -1,52 +1,39 @@
 # AI4Math
 
-把一个数学命题写成 Lean 4，在本机拆分引理、构造证明、检查最终定理。遇到尚未解决的问题，保留已证明的结论和下一次可以接手的具体缺口。整个流程可以在普通 Lake 项目中运行。
+AI4Math helps an agent turn a mathematical claim into Lean 4, develop a proof on your machine, and check exactly what was proved. It runs locally and requires no AI4Math account or API key.
 
-## 安装与使用
+## Paste this into your agent
 
-把本仓库下载或克隆为 `ai4math` 文件夹，放到项目的 `.agents/skills/` 下。使用支持 Agent Skills 的客户端打开项目。在 Codex 中可以直接输入：
+```text
+Follow the setup instructions at https://raw.githubusercontent.com/m4ngod/AI4Math/main/README.md to download and configure AI4Math for my agent, check Python 3, Lean 4 and Lake, install anything missing, and verify the setup by running the bundled proof audit.
+```
 
-> 用 $ai4math 证明：对任意自然数 n，重复写 n 个 true 得到的列表长度为 n。先核对形式陈述，再在本机编译并列出最终定理依赖的公理。
+### Setup instructions for the agent
 
-运行示例需要 Lean 4、Lake 和 Python 3。首次使用可通过 elan 获取示例锁定的工具链。在本仓库根目录运行：
+1. **Install the skill.** Download the complete [AI4Math repository](https://github.com/m4ngod/AI4Math) into the client's supported skills directory as `ai4math`, with `SKILL.md` directly inside it. For a project-scoped Codex installation, use `.agents/skills/ai4math/`. Clone with Git or extract the [repository ZIP](https://github.com/m4ngod/AI4Math/archive/refs/heads/main.zip). Reuse an existing installation and preserve local edits.
+2. **Check the tools and install what's missing.** Find a working Python 3 interpreter (`python3`, `python`, or `py -3` on Windows). From `examples/demo/`, run `lean --version` and `lake --version` and check Lean against the bundled `lean-toolchain` file. Install missing tools using the [Python downloads](https://www.python.org/downloads/) and [Lean installation guide](https://lean-lang.org/install/) for the user's OS. Lake ships with Lean. If the pinned toolchain is missing, install that version with elan. Make the tools available to the agent's shell and repeat the checks.
+3. **Run the proof audit.** From the installed skill directory, run the command below with the Python 3 interpreter you found. The demo uses Lean's standard library. It proves that a list made by repeating `true` exactly *n* times has length *n*. The audit builds the module, checks that the theorem has the intended type, and reports its axiom dependencies.
 
 ```sh
 python scripts/audit.py examples/demo Demo Demo.result Demo.Target
 ```
 
-`examples/demo/Demo/Statement.lean` 固定命题，`examples/demo/Demo.lean` 用归纳法完成证明。检查程序会构建该模块，将最终定理的实际类型与固定命题核对，并打印其传递依赖的公理。这个例子只用 Lean 自带的库。
+The last line of a successful run reads `PASS Demo.result has type Demo.Target; axiom dependencies: none`. Report the installation path, tool versions, and audit result. If the client loads skills at session start, tell the user to open a new session to invoke `$ai4math`.
 
-实际研究可使用社区维护的 [Mathlib](https://github.com/leanprover-community/mathlib4)。已有项目沿用自己的 Lean 和 Mathlib 版本；新项目的配置见[本地环境说明](references/setup.md)。
+## Using AI4Math
 
-## 选择工作模式
+Open a proof project and give `$ai4math` a claim in ordinary language. The agent asks which mode you want in the client's display language. You can also choose a mode in the first message.
 
-调用后，助手首先用客户端的界面语言询问这次用**全自动**还是**半自动**，等你选择后开始。也可以在第一句话里直接指定，例如“用 $ai4math，全自动证明这个命题”。
+- **Semi-auto** suits problems of moderate or lower difficulty when you want to follow the reasoning and choose each major direction. At a fork, the agent links a route comparison before asking you to decide. The document opens with the choices and recommendation, then walks through the proof up to the fork, what each route would establish, and the first test. A worked example can make the key inference easier to see. A brief verification summary links to the detailed calculations and logs. The chooser uses the same route labels, usually with two to five one-sentence options. You can ask for clarification before choosing.
+- **Full auto** suits difficult problems such as the Riemann hypothesis or the twin prime conjecture when you want the agent to choose routes even if you cannot follow every step. Where the client supports and enables Goal mode, the agent pursues the original objective across rounds and reuses a matching active goal. Proving a supporting lemma is a checkpoint. If you asked for a specific milestone, that milestone defines completion.
 
-- **半自动**适合难度适中或较低的问题，助手会把关键思路讲到你能理解，再由你决定下一步。
-- **全自动**适合黎曼猜想、孪生素数猜想等高难度问题，即使你难以跟上每一步推理，也可以把路线选择交给助手；客户端支持 Goal 时，会用 Goal 跨轮推进。
+Switch modes at any time. “You choose this time” delegates one decision and keeps semi-auto active. At the end of each full-auto round, the agent records what it tried, what it proved, why a route failed, where the evidence lives, and which gap to test next. Clients without Goal mode can use the same handoff to resume in a later session. A fresh invocation lets you choose the mode again.
 
-半自动遇到路线分歧时，助手会先在证明项目中写一份路线比较文档，发给你打开阅读。打开文档先看到这次要选什么、推荐哪条及其理由，接着是各路线的编号、思路、障碍和第一项检验。选项下方用通俗语言讲一段证明过程：从已证的哪一步出发，中间怎样推，卡在哪里，为什么这会引出各条路线，以及选了之后先做什么。能用小例子看清关键一步时，就把例子算给读者看。末尾简列核对结果，详细推导、日志和数据通过链接查看。助手会在选项前单独放一行“查看本轮路线比较文档”的链接，并标明路线编号。如果比较写在研究报告里，也会指出具体小节。选择框沿用同一套编号，通常列出 2–5 个一句话选项。你可以先要求解释某条路线，再做决定。
+## How a proof develops
 
-中途可以直接说“切到全自动，你选路线继续”或“改成半自动，下个重要分岔让我选”。如果只说“这次你定”，助手替你做当前选择，之后仍按半自动推进。重新调用 skill 续研时，可以重新选择模式。
+1. **Fix the claim.** Make the domains, quantifiers, hypotheses and conclusion explicit. When available and authorized, an independent reader translates the Lean statement back into ordinary language so you can compare it with the original.
+2. **Find the gap.** Search the project's pinned theorem library, including [Mathlib](https://github.com/leanprover-community/mathlib4) when available. Check the exact hypotheses of relevant results. If they already imply the target, assemble and verify the proof. Otherwise, write down what follows and the precise step still missing. Existing projects keep their Lean and library versions. See the [local setup guide](references/setup.md) for new Mathlib projects.
+3. **Invent tools for the missing step.** If an estimate loses the relationship between two objects, try defining a quantity on the pair. State the property that would advance the proof, then test it on an example likely to expose a flaw. Keep unproved ideas as conjectures or explicit hypotheses of a reduction. Record failed approaches so the next round can build on them.
+4. **Verify the result.** Prove the properties used by the final argument in Lean, assemble the theorem, and audit its type and transitive axiom dependencies. For a disproof, audit the negation of the claim. If the problem remains open, report the strongest established result, the remaining obligation and a reproducible next test.
 
-## 全自动长期续研
-
-客户端支持并已启用 Goal 时，助手用原命题作为持续目标，已有同一目标就接着做。每轮结束时，助手把本轮尝试、已证结论、失败原因、证据位置、剩余缺口和下一项检验写进项目交接记录。下一轮先读最新记录，核对后从缺口继续。完成一条辅助引理后，原命题继续保留为目标。用户指定阶段任务时，以该任务为完成条件。
-
-客户端没有 Goal 时，助手在当前会话内推进并照常保存交接记录，下次调用时可以接着做。
-
-## 两种模式共用的研究要求
-
-固定原命题后，先查项目所用版本的定理库，核对相关定理的假设和结论。若已有结果足以推出目标，就组合它们并用 Lean 验证。若仍有缺口，先写清楚已有结果能推到哪一步、离目标还差什么。
-
-创造数学工具和方法的目的是为了填补现有工具和方法与最终目标之间的空隙。把创新作为填补这段空隙的第一准则。如果现有估计丢掉了两个对象之间的关系，可以尝试为这对对象定义一个新量，再检验它能否保留证明所需的信息。
-
-允许想法有漏洞。可以先写下“如果这个量在每一步都保持不变，结论就成立”，再挑一个最可能打破它的例子试一试。全自动时自己选路线动手验证；半自动遇到分岔时，把有希望的自创路线和第一步怎么试讲给用户。探索中的猜想可以留在草稿里。最终证明用到的新工具，其关键性质要在 Lean 中证明，再连同原命题一起接受检查。
-
-## 工作方式
-
-- 先固定量词、定义域、假设和结论。条件允许时，由独立读者只看形式陈述做回译，再与原题逐项核对。
-- 把未证引理写成归约定理的显式前提，检查每条依赖，最后合成原命题的证明。反驳原命题时，检查其否定命题的证明。
-- 每轮留下已证结论、失败路线、剩余命题和复验命令，下一次会话可以从具体缺口继续。
-
-[Skill 入口](SKILL.md) · [回译指南](references/readback.md) · [续研记录](references/handoff.md)
+[Skill instructions](SKILL.md) · [Statement read-back](references/readback.md) · [Research handoff](references/handoff.md)
