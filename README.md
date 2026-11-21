@@ -1,12 +1,12 @@
-# [MMP]mathematical-proof
+# AI4Math
 
 把一个数学命题写成 Lean 4，在本机拆分引理、构造证明、检查最终定理。遇到尚未解决的问题，保留已证明的结论和下一次可以接手的具体缺口。整个流程可以在普通 Lake 项目中运行。
 
 ## 安装与使用
 
-把本仓库下载或克隆为 `mathematical-proof` 文件夹，放到项目的 `.agents/skills/` 下。使用支持 Agent Skills 的客户端打开项目。在 Codex 中可以直接输入：
+把本仓库下载或克隆为 `ai4math` 文件夹，放到项目的 `.agents/skills/` 下。使用支持 Agent Skills 的客户端打开项目。在 Codex 中可以直接输入：
 
-> 用 $mathematical-proof 证明：对任意自然数 n，重复写 n 个 true 得到的列表长度为 n。先核对形式陈述，再在本机编译并列出最终定理依赖的公理。
+> 用 $ai4math 证明：对任意自然数 n，重复写 n 个 true 得到的列表长度为 n。先核对形式陈述，再在本机编译并列出最终定理依赖的公理。
 
 运行示例需要 Lean 4、Lake 和 Python 3。首次使用可通过 elan 获取示例锁定的工具链。在本仓库根目录运行：
 

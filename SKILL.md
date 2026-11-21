@@ -1,9 +1,9 @@
 ---
-name: mathematical-proof
+name: ai4math
 description: Formalize, prove, disprove, or resume a mathematical claim in a local Lean 4 project. Use for statement read-back, lemma decomposition, Mathlib search, and reproducible proof and axiom checks.
 ---
 
-# Mathematical Proof
+# AI4Math
 
 Work in the user's proof project. Keep the skill installation separate from the project's sources and research notes. Reuse an existing Lake project and its lockfile. For a new project or the small working example see [setup](references/setup.md).
 
