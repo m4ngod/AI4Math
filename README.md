@@ -2,7 +2,7 @@
 
 AI4Math helps an agent turn a mathematical claim into Lean 4, develop a proof on your machine, and check exactly what was proved. It runs locally and requires no AI4Math account or API key.
 
-## Paste this into your agent
+# Paste this into your agent
 
 ```text
 Follow the setup instructions at https://raw.githubusercontent.com/m4ngod/AI4Math/main/README.md to download and configure AI4Math for my agent, check Python 3, Lean 4 and Lake, install anything missing, and verify the setup by running the bundled proof audit.
