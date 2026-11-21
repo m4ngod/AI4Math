@@ -7,7 +7,7 @@ description: Formalize, prove, disprove, or resume a mathematical claim in a loc
 
 ## Choose the working mode first
 
-At the start of each invocation, including a new invocation to resume a proof, ask in the user's language which working mode they want. For example: “这次用全自动还是半自动？全自动由我选择证明路线并推进；半自动会在重要分岔处请你选方向。” Wait for the answer before project setup, searches, edits or proof work. If the invocation already selects a mode, accept that selection and begin. A follow-up within the same run keeps the active mode. A previous handoff can supply context for the question but cannot select the mode for this run.
+At the start of each invocation, including a new invocation to resume a proof, ask in the user's language which working mode they want. For example: “Would you like full-auto or semi-auto mode for this proof? In full-auto mode I choose which proof strategy to pursue. In semi-auto mode I ask you to choose at major decision points.” Wait for the answer before project setup, searches, edits or proof work. If the invocation already selects a mode, accept that selection and begin. A follow-up within the same run keeps the active mode. A previous handoff can supply context for the question but cannot select the mode for this run.
 
 - **Full auto.** Choose the next route, test it, and pivot when the evidence warrants it. Keep working through routine setbacks and record why a consequential route was chosen.
 - **Semi-auto.** Pause when the user's preference would change the next substantial body of work. Typical checkpoints are two credible routes with different payoffs, a central lemma failing and reopening the choice of approach, or a verified milestone unlocking competing next objectives within the original goal. First run cheap checks that can settle the choice. If one route remains or a fix is routine, proceed through library search, tactic repair, builds and audits without a vote.
@@ -28,7 +28,7 @@ Use [the read-back guide](references/readback.md) to check the translation. Give
 
 ## Invent mathematical tools in both modes
 
-创造数学工具和方法的目的是为了填补现有工具和方法与最终目标之间的空隙。
+The purpose of creating new mathematical tools and methods is to bridge the gap between what existing methods can establish and what the final goal requires.
 
 Once the target is fixed, first search the project's pinned theorem library and try the applicable results. If they prove the target, assemble and audit that proof. Otherwise, state exactly what they establish and which implication, bound, or hypothesis is still missing. Treat innovation as the first principle for closing that gap. Approach an unsolved problem like a steep cliff: imagine where a new route could run. Let the obstruction guide the invention. If counting loses information about how two objects interact, for example, try defining a quantity on the pair and ask what it would have to preserve for the proof to go through. Draw on prior experience as useful when designing the missing tool. An unfamiliar approach needs no precedent to be worth trying.
 
