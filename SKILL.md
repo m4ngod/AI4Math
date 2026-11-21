@@ -26,9 +26,17 @@ Record the user's exact mathematical claim, domain, quantifier order, convention
 
 Use [the read-back guide](references/readback.md) to check the translation. Give an independent reader the declarations and guide only when an isolated reviewer is available and authorized. Compare the response to the original, resolve discrepancies and repeat after meaning-changing edits. If the same assistant is the only reader, record a self-check. Ask the author when a genuine ambiguity changes the theorem. Continue independent work while it is unresolved.
 
+## Invent mathematical tools in both modes
+
+Treat innovation as the first principle of proof search. Approach an unsolved problem like a steep cliff: imagine where a new route could run. Let the obstruction guide the invention. If counting loses information about how two objects interact, for example, try defining a quantity on the pair and ask what it would have to preserve for the proof to go through. Draw on prior experience or Mathlib when it helps answer a specific question. An unfamiliar approach needs no precedent to be worth trying.
+
+Give yourself room to be wrong. Sketch the construction while its key lemma is still a conjecture. State what that lemma would buy, try it on a revealing case, and use any failure to refine the construction or abandon it. In full auto, choose and test the most promising idea yourself. At a semi-auto fork, include a tool of your own design when you see a credible one, and explain what its first test could tell the user.
+
+Keep speculative tools in the research notes or drafts. To use one in the final proof, establish the properties the argument actually needs in Lean, assemble the proof of the reviewed target, and audit its dependencies. Describe a tool you devised here as a construction for this problem; a claim of historical priority requires separate evidence.
+
 ## Develop the proof
 
-1. Search the project's pinned library first. Use local source search for definitions and lemmas, `#check` for exact signatures, and `exact?` or `apply?` on the current goal. Record the names, types and hypotheses of results actually used.
+1. When a construction needs an existing definition or lemma, search the project's pinned library. Use `#check` for exact signatures, and `exact?` or `apply?` on the current goal. Record the names, types and hypotheses of results actually used.
 2. Try a direct argument or a counterexample. For a longer proof write the proposed implication from explicit subclaims to the target. Formalize this implication with ordinary arguments for the missing subclaims. Give each open node a precise statement, dependencies, and at least one route to test it.
 3. Work on a leaf whose proof or failure changes what can be concluded. Compile small modules as you go. Track circular routes, failed strategies, and the reason each failed. A disproved intermediate claim closes that route; a verified witness contradicting the original claim establishes a disproof.
 4. Reassemble the root with actual proofs. For a disproof freeze the proposition `¬ Target` as the counterclaim and audit its proof. Keep explorations containing placeholders in draft files outside the verified import closure.
