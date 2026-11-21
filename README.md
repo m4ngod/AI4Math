@@ -5,12 +5,12 @@ AI4Math helps an agent turn a mathematical claim into Lean 4, develop a proof on
 # Paste this into your agent
 
 ```text
-Follow the setup instructions at https://raw.githubusercontent.com/m4ngod/AI4Math/main/README.md to download and configure AI4Math for my agent, check Python 3, Lean 4 and Lake, install anything missing, and verify the setup by running the bundled proof audit.
+Follow the setup instructions at https://raw.githubusercontent.com/m4ngod/AI4Math/main/README.md to install and configure the AI4Math and AskYuhang skills for my agent, check Python 3, Lean 4 and Lake, install anything missing, and verify the setup by running the bundled proof audit.
 ```
 
 ### Setup instructions for the agent
 
-1. **Install the skill.** Download the complete [AI4Math repository](https://github.com/m4ngod/AI4Math) into the client's supported skills directory as `ai4math`, with `SKILL.md` directly inside it. For a project-scoped Codex installation, use `.agents/skills/ai4math/`. Clone with Git or extract the [repository ZIP](https://github.com/m4ngod/AI4Math/archive/refs/heads/main.zip). Reuse an existing installation and preserve local edits.
+1. **Install both skills.** Clone the [repository](https://github.com/m4ngod/AI4Math) or extract its [ZIP](https://github.com/m4ngod/AI4Math/archive/refs/heads/main.zip) into a staging directory. Install two sibling folders in the client's skills directory (for a project-scoped Codex installation, `.agents/skills/`). Copy the repository's root `SKILL.md`, `agents/`, `references/`, `scripts/`, `examples/`, `README.md` and `LICENSE` into `ai4math/`. Copy the contents of [skills/askyuhang](https://github.com/m4ngod/AI4Math/tree/main/skills/askyuhang) and the root license into `askyuhang/`. Each skill must have its own top-level `SKILL.md`. Preserve local edits when updating existing installations. Run the following setup checks from `ai4math/` or its demo as indicated.
 2. **Check the tools and install what's missing.** Find a working Python 3 interpreter (`python3`, `python`, or `py -3` on Windows). From `examples/demo/`, run `lean --version` and `lake --version` and check Lean against the bundled `lean-toolchain` file. Install missing tools using the [Python downloads](https://www.python.org/downloads/) and [Lean installation guide](https://lean-lang.org/install/) for the user's OS. Lake ships with Lean. If the pinned toolchain is missing, install that version with elan. Make the tools available to the agent's shell and repeat the checks.
 3. **Run the proof audit.** From the installed skill directory, run the command below with the Python 3 interpreter you found. The demo uses Lean's standard library. It proves that a list made by repeating `true` exactly *n* times has length *n*. The audit builds the module, checks that the theorem has the intended type, and reports its axiom dependencies.
 
@@ -18,7 +18,13 @@ Follow the setup instructions at https://raw.githubusercontent.com/m4ngod/AI4Mat
 python scripts/audit.py examples/demo Demo Demo.result Demo.Target
 ```
 
-The last line of a successful run reads `PASS Demo.result has type Demo.Target; axiom dependencies: none`. Report the installation path, tool versions, and audit result. If the client loads skills at session start, tell the user to open a new session to invoke `$ai4math`.
+The last line of a successful run reads `PASS Demo.result has type Demo.Target; axiom dependencies: none`. Report the installation path, tool versions, and audit result. If the client loads skills at session start, tell the user to open a new session to invoke `$askyuhang` or `$ai4math`.
+
+## AskYuhang: start here if you are unsure
+
+Ask `$askyuhang How do I use AI4Math, and which mode would fit my problem?` It can answer a quick question or ask about your problem, the mathematics you know, and how much of the strategy you want to choose. Education, field of study and past results are optional context. You get a recommendation with reasons and a prompt you can paste into AI4Math.
+
+If you want future sessions to remember your background or preferences, choose which details to save. Both skills use the same local file, `~/.ai4math/profile.md`. AskYuhang can show, update, or forget those details. AI4Math uses them to tailor explanations and route comparisons after you choose a mode. Your current instructions take precedence.
 
 ## Using AI4Math
 

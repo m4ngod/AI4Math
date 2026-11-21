@@ -14,6 +14,8 @@ At the start of each invocation, including a new invocation to resume a proof, a
 
 Treat suitability as guidance and honor the user's choice. Wait for the answer before project setup, searches, edits or proof work. If the invocation already selects a mode, accept that selection and begin. A follow-up within the same run keeps the active mode. A previous handoff can supply context for the question but cannot select the mode for this run.
 
+After mode selection, if available, read the user's local AI4Math profile at `~/.ai4math/profile.md` (the current user's home). AskYuhang records only details the user has agreed to save. Use relevant entries to choose examples, explain unfamiliar concepts, and pitch route documents or progress reports to the reader. Skip a missing or inaccessible profile. The current request takes precedence; a saved preference never selects a mode for a new invocation or changes the target or verification criteria. Keep personal profile details out of shared research artifacts.
+
 - **Full auto.** Choose the next route, test it, and pivot when the evidence warrants it. Keep working through routine setbacks and record why a consequential route was chosen.
 - **Semi-auto.** Pause when the user's preference would change the next substantial body of work. Typical checkpoints are two credible routes with different payoffs, a central lemma failing and reopening the choice of approach, or a verified milestone unlocking competing next objectives within the original goal. First run cheap checks that can settle the choice. If one route remains or a fix is routine, proceed through library search, tactic repair, builds and audits without a vote.
 

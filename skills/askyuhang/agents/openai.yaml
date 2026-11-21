@@ -1,0 +1,4 @@
+interface:
+  display_name: "AskYuhang"
+  short_description: "Learn AI4Math and choose a proof mode"
+  default_prompt: "Use $askyuhang to explain AI4Math and help me choose a mode for my problem."
