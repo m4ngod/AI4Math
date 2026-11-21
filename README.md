@@ -1,4 +1,4 @@
-# Mathematical Proof
+# [MMP]mathematical-proof
 
 把一个数学命题写成 Lean 4，在本机拆分引理、构造证明、检查最终定理。遇到尚未解决的问题，保留已证明的结论和下一次可以接手的具体缺口。整个流程可以在普通 Lake 项目中运行。
 
