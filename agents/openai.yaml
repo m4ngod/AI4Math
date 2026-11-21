@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mathematical Proof"
+  short_description: "Develop and audit proofs in local Lean 4 projects"
+  default_prompt: "Use $mathematical-proof to formalize my claim, work through its open lemmas, and verify the final theorem locally."
