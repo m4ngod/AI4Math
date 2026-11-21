@@ -5,6 +5,19 @@ description: Formalize, prove, disprove, or resume a mathematical claim in a loc
 
 # AI4Math
 
+## Choose the working mode first
+
+At the start of each invocation, including a new invocation to resume a proof, ask in the user's language which working mode they want. For example: “这次用全自动还是半自动？全自动由我选择证明路线并推进；半自动会在重要分岔处请你选方向。” Wait for the answer before project setup, searches, edits or proof work. If the invocation already selects a mode, accept that selection and begin. A follow-up within the same run keeps the active mode. A previous handoff can supply context for the question but cannot select the mode for this run.
+
+- **Full auto.** Choose the next route, test it, and pivot when the evidence warrants it. Keep working through routine setbacks and record why a consequential route was chosen.
+- **Semi-auto.** Pause when the user's preference would change the next substantial body of work. Typical checkpoints are two credible routes with different payoffs, a central lemma failing and reopening the choice of approach, or a verified milestone unlocking competing next objectives within the original goal. First run cheap checks that can settle the choice. If one route remains or a fix is routine, proceed through library search, tactic repair, builds and audits without a vote.
+
+At a semi-auto checkpoint, state the evidence and the decision in a sentence. Offer 2–5 genuinely viable options when available, with the next test and tradeoff for each. Recommend one with a brief reason. Accept a numbered choice, a free-text direction or delegation of this decision. Wait before starting any competing branch. Keep the selected route until new evidence changes the decision. Delegating one choice keeps semi-auto active.
+
+Apply an explicit mode switch immediately on receipt. Keep the target, completed proofs, and any route the user specifically chose. Switching to full auto while a direction question is pending releases that question: choose and continue. Switching to semi-auto pauses at a current consequential fork or otherwise at the next one. In either mode, clarify ambiguity that changes the theorem and respect the user's scope and permissions. Use the same verification criteria in both modes.
+
+## Set up the project
+
 Work in the user's proof project. Keep the skill installation separate from the project's sources and research notes. Reuse an existing Lake project and its lockfile. For a new project or the small working example see [setup](references/setup.md).
 
 ## Fix the claim
