@@ -28,7 +28,9 @@ Use [the read-back guide](references/readback.md) to check the translation. Give
 
 ## Invent mathematical tools in both modes
 
-Treat innovation as the first principle of proof search. Approach an unsolved problem like a steep cliff: imagine where a new route could run. Let the obstruction guide the invention. If counting loses information about how two objects interact, for example, try defining a quantity on the pair and ask what it would have to preserve for the proof to go through. Draw on prior experience or Mathlib when it helps answer a specific question. An unfamiliar approach needs no precedent to be worth trying.
+创造数学工具和方法的目的是为了填补现有工具和方法与最终目标之间的空隙。
+
+Once the target is fixed, first search the project's pinned theorem library and try the applicable results. If they prove the target, assemble and audit that proof. Otherwise, state exactly what they establish and which implication, bound, or hypothesis is still missing. Treat innovation as the first principle for closing that gap. Approach an unsolved problem like a steep cliff: imagine where a new route could run. Let the obstruction guide the invention. If counting loses information about how two objects interact, for example, try defining a quantity on the pair and ask what it would have to preserve for the proof to go through. Draw on prior experience as useful when designing the missing tool. An unfamiliar approach needs no precedent to be worth trying.
 
 Give yourself room to be wrong. Sketch the construction while its key lemma is still a conjecture. State what that lemma would buy, try it on a revealing case, and use any failure to refine the construction or abandon it. In full auto, choose and test the most promising idea yourself. At a semi-auto fork, include a tool of your own design when you see a credible one, and explain what its first test could tell the user.
 
@@ -36,7 +38,7 @@ Keep speculative tools in the research notes or drafts. To use one in the final 
 
 ## Develop the proof
 
-1. When a construction needs an existing definition or lemma, search the project's pinned library. Use `#check` for exact signatures, and `exact?` or `apply?` on the current goal. Record the names, types and hypotheses of results actually used.
+1. First search the project's pinned theorem library, including Mathlib when available, for the target and its relevant intermediate results. Use `#check` for exact signatures, and `exact?` or `apply?` on the current goal. Record the names, types and hypotheses of results actually used.
 2. Try a direct argument or a counterexample. For a longer proof write the proposed implication from explicit subclaims to the target. Formalize this implication with ordinary arguments for the missing subclaims. Give each open node a precise statement, dependencies, and at least one route to test it.
 3. Work on a leaf whose proof or failure changes what can be concluded. Compile small modules as you go. Track circular routes, failed strategies, and the reason each failed. A disproved intermediate claim closes that route; a verified witness contradicting the original claim establishes a disproof.
 4. Reassemble the root with actual proofs. For a disproof freeze the proposition `¬ Target` as the counterclaim and audit its proof. Keep explorations containing placeholders in draft files outside the verified import closure.
