@@ -5,7 +5,7 @@ AI4Math helps an agent turn a mathematical claim into Lean 4, develop a proof on
 # Paste this into your agent
 
 ```text
-Follow the setup instructions at https://raw.githubusercontent.com/m4ngod/AI4Math/main/README.md to install and configure the AI4Math and AskYuhang skills for my agent, check Python 3, Lean 4 and Lake, install anything missing, and verify the setup by running the bundled proof audit.
+Follow the setup instructions at https://raw.githubusercontent.com/m4ngod/AI4Math/main/README.md to install and configure the AI4Math and AskYuhang skills for my agent, check Python 3, Lean 4 and Lake, install anything missing, run the bundled proof audit, and once it passes, introduce both skills in the display language of my client.
 ```
 
 ### Setup instructions for the agent
@@ -18,7 +18,9 @@ Follow the setup instructions at https://raw.githubusercontent.com/m4ngod/AI4Mat
 python scripts/audit.py examples/demo Demo Demo.result Demo.Target
 ```
 
-The last line of a successful run reads `PASS Demo.result has type Demo.Target; axiom dependencies: none`. Report the installation path, tool versions, and audit result. If the client loads skills at session start, tell the user to open a new session to invoke `$askyuhang` or `$ai4math`.
+The last line of a successful run reads `PASS Demo.result has type Demo.Target; axiom dependencies: none`. Report the installation paths, tool versions, and actual audit result.
+
+**Introduce the two skills.** Once both skills are installed and the audit passes, finish your reply with one short paragraph in the client's current display language. Use the UI locale supplied by the host, even when the setup prompt was pasted in English. If the client does not expose its locale, use the user's established conversation language when available. Keep the invocation names unchanged. Tell the user they can give `$ai4math` a mathematical claim to develop and verify a proof locally in Lean, or start with `$askyuhang` to learn the workflow, get help choosing semi-auto or full-auto, and save preferences they want remembered. If the client discovers new skills only at session start, mention that they can use these commands in a new chat.
 
 ## AskYuhang: start here if you are unsure
 
